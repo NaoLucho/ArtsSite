@@ -73,7 +73,7 @@ class DBLogCRUDController extends Controller
         $haserror = false;
         $newEntities = [];
         $docReader = new AnnotationReader();
-
+        $message = "";
         try {
             //$propertyAccessor = PropertyAccess::createPropertyAccessor();
             foreach ($selectedDBLogs as $DBlog) {
@@ -193,6 +193,12 @@ class DBLogCRUDController extends Controller
                                             $np = "SiteBundle\\Entity\\";
                                         } elseif (class_exists("Application\\Sonata\\UserBundle\\Entity\\" . $elemInfo[0])) {
                                             $np = "Application\\Sonata\\UserBundle\\Entity\\";
+                                        } elseif (class_exists("Builder\\PageBundle\\Entity\\" . $elemInfo[0])) {
+                                            $np = "Builder\\PageBundle\\Entity\\";
+                                        } elseif (class_exists("Builder\\FormBundle\\Entity\\" . $elemInfo[0])) {
+                                            $np = "Builder\\FormBundle\\Entity\\";
+                                        } elseif (class_exists("Builder\\ListBundle\\Entity\\" . $elemInfo[0])) {
+                                            $np = "Builder\\Entity\\";
                                         }
                                     
                                     //Search in new entities
@@ -230,6 +236,12 @@ class DBLogCRUDController extends Controller
                                                     $np = "SiteBundle\\Entity\\";
                                                 } elseif (class_exists("Application\\Sonata\\UserBundle\\Entity\\" . $elemInfo[0])) {
                                                     $np = "Application\\Sonata\\UserBundle\\Entity\\";
+                                                } elseif (class_exists("Builder\\PageBundle\\Entity\\" . $elemInfo[0])) {
+                                                    $np = "Builder\\PageBundle\\Entity\\";
+                                                } elseif (class_exists("Builder\\FormBundle\\Entity\\" . $elemInfo[0])) {
+                                                    $np = "Builder\\FormBundle\\Entity\\";
+                                                } elseif (class_exists("Builder\\ListBundle\\Entity\\" . $elemInfo[0])) {
+                                                    $np = "Builder\\Entity\\";
                                                 }
 
                                             //Search in new entities
@@ -469,7 +481,7 @@ class DBLogCRUDController extends Controller
             $errorinfo = 'CODE:' . $e->getCode() . '</br> MESSAGE: </br>' . $e->getMessage();
             $errorinfo = $errorinfo . '</br> TRACE: </br>' . $e->getTraceAsString();
 
-            $this->addFlash('sonata_flash_error', 'ERREUR SERVER: <br>' . $errorinfo);
+            $this->addFlash('sonata_flash_error', 'CURRENT MESSAGE: '.$message.'<br>ERREUR SERVER: <br>' . $errorinfo);
             // return new RedirectResponse(
             //     $this->admin->generateUrl('list', [
             //         'filter' => $this->admin->getFilterParameters()
