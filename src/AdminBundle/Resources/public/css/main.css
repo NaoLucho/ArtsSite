@@ -1,19 +1,20 @@
 
 .body-back{
-    background-color: #a7c5c1;
+    /* background-color: #a7c5c1; */
     
 }
 
 .body{
+    max-width: 1200px;
+    min-width: 70%;
+    margin: 10px auto;
     font-size: 18px;
     color:#003300;
-    margin-top: 10px;
-    margin-bottom: 10px;
     padding: 20px;
 }
 
 .lateral{
-    border-left: 1px solid rgba(0,0,0,.1);;
+    border-left: 1px solid rgba(0,0,0,.1);
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 10px 20px 10px 20px;
@@ -33,7 +34,7 @@ a{
     color: #2aa67d;
 }
 .page{
-    padding: 10px 50px 0 50px;
+    /* padding: 10px 50px 0 50px; */
 }
 .container{
     max-width: 1270px;
@@ -42,34 +43,84 @@ a{
     background-color: white;
     border:           1px  solid #86b0aa;
 }
-.navbar{
-    background-color: #e0f0ee;
+
+#topnavbar{
+    background-color: rgba(0,0,0,.6);
 }
-.navbar-nav{
+#topnavbar a, #topnavbar input, #topnavbar button{
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+}
+#topnavbar a, #topnavbar button{
+    color: #e0f0ee;
+}
+
+
+.Menu, .UserMenu{
+    height: 56px;
+    background-color: #e0f0eee6;
+    position: relative;
+}
+
+
+.Menu .navbar-nav, .UserMenu .navbar-nav{
     margin-left: auto;
     margin-right: auto;
 }
-.navbar-light .navbar-nav .active > .nav-link{
+.Menu .navbar-light .navbar-nav .active > .nav-link,
+.UserMenu .navbar-light .navbar-nav .active > .nav-link{
     background-color: white;
-    border-radius:    5px;
+    /* border-radius:    5px; */
     color:            #2aa67d;
     font-weight:      bolder;
 }
-.navbar li:hover{
+.Menu .navbar li:hover,
+.UserMenu .navbar li:hover{
     background-color: rgba(255,255,255,.7);
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
-.nav-item {
+.Menu .nav-item,
+.UserMenu .nav-item{
     margin-right: 5px;
     min-width:    100px;
     text-align:   center;
-    color:        #666;
+    /* color:        #666; */
+    background-color: #e0f0ee33;
+    z-index: 1300;
 }
-.navbar-light .navbar-nav .nav-link:hover,
+.Menu a,
+.UserMenu a{
+    color: darkslategray;
+}
+
+/* 
+data-start="position: static;top:0px; background-color: blue;" data-top="position: fixed;top: -5px; left: 0;right: 0;z-index: 1250;background-color: yellow;" */
+.fixnav nav{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -5px;
+    z-index: 1250;
+}
+
+.fixnav .nav-item{
+    background-color: #e0f0eeb3;
+}
+
+.Menu .navbar-light .navbar-nav .nav-link:hover,
 .navbar a:hover{
     color: #2aa67d;
 }
+
+.Header{
+    max-height: 50vh;
+    /* max-height: 250px; */
+    overflow: hidden;
+    margin-bottom: -56px;
+}
+
 .Footer{
     background-color: #222;
     padding:          60px 0;
@@ -104,4 +155,14 @@ a{
 
 .search-container{
     margin: 0px 20px 40px 20px;
+}
+
+
+/* LOGIN PART */
+.modal-header{
+    background-color: #e0f0ee;
+}
+.modal-header h4{
+    position: absolute;
+    float: left;
 }

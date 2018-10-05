@@ -13,7 +13,10 @@
 #         _controller: BuilderPageBundle:Builder\BuildPage:buildPageDetails
 
 
-
+builder_buildpage_username:
+    path:      /compte/{username}/{slug}
+    defaults:
+        _controller: BuilderPageBundle:Builder\BuildPage:buildPage
 
 
 # site_buildpageid:

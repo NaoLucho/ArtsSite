@@ -25,7 +25,7 @@ class UserType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-        ->remove('username')
+        //->remove('username')
         ->add('lastname', null, array(
             'label' => 'Nom'
         ))
@@ -36,6 +36,9 @@ class UserType extends AbstractType {
         ->add('imageFile', FileType::class, array(
             'required' => false,
             'label' => 'Avatar'
+        ))
+        ->add('description', null, array(
+            'label' => 'Description'
         ));
     }
 

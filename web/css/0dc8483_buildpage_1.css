@@ -32,10 +32,11 @@
 }
 
 .list-items .illustration img{
-    max-width: 150px;
+    width: 150px;
 }
 
 .list-items .illustration{
+    min-width: 150px;
     margin-bottom: 4px;
 }
 

@@ -1,5 +1,6 @@
 {#{% extends "AdminBundle::builder_layout.html.twig" %} #}
-{% extends template_repo ~'/views/templates/default.html.twig' %}
+{# {% extends template_repo ~'/views/templates/default.html.twig' %} #}
+{% extends "BuilderPageBundle::builder_layout.html.twig" %}
 {% if page is defined %}
 
     {% if page == 'inscription' %}
@@ -19,7 +20,7 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {% javascripts '@ApplicationSonataUserBundle/Resources/public/js/register/mapping.js' %}
+    {# {% javascripts '@ApplicationSonataUserBundle/Resources/public/js/register/mapping.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% javascripts '@ApplicationSonataUserBundle/Resources/public/js/register/register.js' %}
@@ -28,5 +29,5 @@
     
     {% javascripts '@ApplicationSonataUserBundle/Resources/public/js/profile/profile.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {% endjavascripts %} #}
 {% endblock %}

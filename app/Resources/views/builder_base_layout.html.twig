@@ -1,81 +1,103 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122394378-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122394378-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-        gtag('config', 'UA-122394378-1');
-    </script>
+            gtag('config', 'UA-122394378-1');
+        </script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}SITEBUILDER{% endblock %}</title>
-    <meta name="description" content={% block seoDescription %}
-            "description"
-        {% endblock %}/>
-    <meta name="keywords" content={% block seoKeywords %}
-            "content"
-        {% endblock %} />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}SITEBUILDER{% endblock %}</title>
+        <meta name="description" content={% block seoDescription %}
+                "description"
+            {% endblock %}/>
+        <meta name="keywords" content={% block seoKeywords %}
+                "content"
+            {% endblock %} />
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> {% block stylesheets %} {# On charge le CSS de bootstrap depuis le site directement #}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" /> 
+        
+        
+        {% block stylesheets %}
+        {# On charge le CSS de bootstrap depuis le site directement #}
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Access' Infos">
+        <meta property="og:description" content={{ block('seoDescription') }}>
+        <meta property="og:url" content="http://www.site.fr/">
+        <meta property="og:site_name" content="Access' Infos">
+        <meta property="og:locale" content="fr_FR">
+        <link rel="alternate" href="https://www.site.fr/" hreflang="fr-fr" />
+        <link rel="alternate" href="https://www.site.fr/" hreflang="x-default" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+{# <link rel="stylesheet" href="{{ asset( template_repo ~ '/assets/css/open.min.css') }}" /> #}
+        {# select2_bootstrap #}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('assets/css/select2/select2_bootstrap.css') }}" /> 
+        {# css SonataUserBundle #} 
+        {% stylesheets '@ApplicationSonataUserBundle/Resources/public/css/main.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" /> {% endstylesheets %} 
+        {# css buidler #} 
+        {% stylesheets '@AdminBundle/Resources/public/css/main.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" /> 
+        {% endstylesheets %}
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+            crossorigin="anonymous"> 
+        {% endblock %}
+
+        
     
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Access' Infos">
-    <meta property="og:description" content={{ block('seoDescription') }}>
-    <meta property="og:url" content="http://www.site.fr/">
-    <meta property="og:site_name" content="Access' Infos">
-    <meta property="og:locale" content="fr_FR">
-    <link rel="alternate" href="https://www.site.fr/" hreflang="fr-fr" />
-    <link rel="alternate" href="https://www.site.fr/" hreflang="x-default" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+    </head>
 
-    {# select2_bootstrap #}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('assets/css/select2/select2_bootstrap.css') }}" /> 
-    {# css SonataUserBundle #} 
-    {% stylesheets '@ApplicationSonataUserBundle/Resources/public/css/main.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" /> {% endstylesheets %} 
-    {# css buidler #} {% stylesheets '@AdminBundle/Resources/public/css/main.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" /> {% endstylesheets %}
+    <body class="body-back">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous"> {% endblock %} {% block javascripts %} {# jquery #}
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-    {# jquery UI #}
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-    {# bootstrap #} {#
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> #} {#
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script> #}
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        {# TOP MENU -> Logo, Search, connect/disconnect#}
+        <nav id="topnavbar" class="navbar navbar-expand-lg  sticky-top">
+            <a class="navbar-brand" href="{{ path('builder_buildpage', { 'slug': 'accueil' }) }}">ARTS-SITE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    {# select2 #}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-    {#
-    <script src="{{ asset( template_repo ~ '/assets/js/owl.carousel.js') }}"></script>
-    <script src="{{ asset( template_repo ~ '/assets/js/open.min.js') }}"></script> #} {#
-    <script src="{{ asset('assets/js/chosen_v1.8.2/chosen.jquery.js') }}"></script> #}
-
-    {# Utilisation d'openlayers (map) #}
-    {# <script src="https://openlayers.org/en/v4.6.4/build/ol.js" type="text/javascript"></script> #}
-    {% endblock %}
-</head>
-
-<body class="body-back">
-    <div class="container">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline mr-auto my-lg-0" action="{{ path('builder_buildpage', {'slug': 'recherche'}) }}" method="GET">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Expo, Artiste, Lieux" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <ul class="navbar-nav mr-0">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li class="nav-item">
+                             <a class="nav-link" href="{{ path('builder_buildpage', { 'slug': 'messages' }) }}"><i class="far fa-envelope"></i></a>
+                        </li>
+                        <li class="nav-item espacepro-link">
+                            <a class="nav-link" href="{{ path('builder_buildpage_username', { 'slug' : 'presentation', 'username': app.user.username }) }}">{{ app.user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item espacepro-link">
+                            <a id="login" href="{{ path('site_login') }}" type="button" data-toggle="modal" data-target="#modalLogin">Connexion</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                
+            </div>
+        </nav>
+        
         <div class="page">
             {# BLOCK CONNEXION #} {#
             <div class="row">
@@ -92,13 +114,14 @@
                 </div>
             </div> #}
 
-            <div class="row">
+            <div class="row ml-0 mr-0" >
                 {% block header %}
-                <div id="header" class="jumbotron">
+                <div class="jumbotron">
                     Ici est un header
                 </div>
                 {% endblock %}
             </div>
+            
 
             {% block menu %}
             <h3>Pages:</h3>
@@ -107,29 +130,87 @@
                     <a href="{{ path('homepage') }}">Accueil</a>
                 </li>
             </ul>
-            {% endblock %} {# probleme avec les render(controller()), le template tiens compte du flashbag seulement après refresh Il
-            faut donc l'ajouter à chaque fois dans le template appellé par le controlleur (cf. article) #} {# {% if app.request.hasPreviousSession
-            %} {% for type, messages in app.session.flashBag.all %} {% for message in messages %}
-            <div class="mt-4 alert alert-{{ type }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-            {% endfor %} {% endfor %} {% endif %} #} {# Apparait seulement si fos_user est appelé #} {% block fos_user_content %}{% endblock
-            fos_user_content %}
-            <div class="row">
-                <div class="body col-md-8">
-                    {% block body %}{% endblock %}
-                </div>
-                <div class="lateral col-md-4">
-                    {% block lateral %} {% include "lateral.html.twig"%} {% endblock %}
-                </div>
-            </div>
-        </div>
-        {% block footer %}
-        <footer>
-            <p>Site créé par <a href="https://www.funga.fr" >Funga</a></p>
-        </footer>
-        {% endblock %}
-    </div>
-</body>
+            {% endblock %} 
+            
+            <div class="content">
 
+                {# Messages fos_user #}
+                {% block messages %}
+                    {% if app.request.hasPreviousSession %}
+                    {% for type, messages in app.session.flashBag.all %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ message|trans({}, 'FOSUserBundle') }}
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                {% endblock %}
+
+                {# Apparait seulement si fos_user est appelé #}
+                {% block fos_user_content %}
+                {% endblock %}
+
+                {# <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="login">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            {% block fos_user_login %}{% endblock fos_user_login %}
+                        </div>
+                    </div>
+                </div> #}
+            
+                <div class="ml-0 mr-0">
+                    {# <div class="body col-md-8"> #}
+                    <div class="body row">
+                        {% block body %}{% endblock %}
+                    </div>
+                    {# <div class="lateral col-md-4">
+                        {% block lateral %} {% include "lateral.html.twig"%} {% endblock %}
+                    </div> #}
+                </div>
+            </div>
+            {% block footer %}
+            <footer>
+                <p>Site créé par <a href="https://www.funga.fr" >Funga</a></p>
+            </footer>
+            {% endblock %}
+        </div>
+
+        {# Include modal login #}
+        {% include  template_repo ~ "/views/parts/login.html.twig" %}
+    </body>
+
+    {% block javascripts %} 
+    {# jquery #}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    {# jquery UI #}
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    {# bootstrap #} {#
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> #} {#
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script> #}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    {# select2 #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    {# <script src="{{ asset( template_repo ~ '/assets/js/owl.carousel.js') }}"></script>#}
+    <script src="{{ asset( template_repo ~ '/assets/js/open.min.js') }}"></script>
+    {# <script src="{{ asset('assets/js/chosen_v1.8.2/chosen.jquery.js') }}"></script> #}
+
+    {# Utilisation d'openlayers (map) #}
+    {# <script src="https://openlayers.org/en/v4.6.4/build/ol.js" type="text/javascript"></script> #}
+    {% endblock %}
+    {# parralax page #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
+        {# NEED INIT skroll #}
+        <script>  
+            $(function(){
+                skrollr.init({
+                    forceHeight: false
+                });
+            });
+        </script> 
 </html>

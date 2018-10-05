@@ -83,7 +83,38 @@ class User extends BaseUser
      */
     private $imageSize;
 
-    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Overridden so that username is now optional
@@ -93,7 +124,7 @@ class User extends BaseUser
      */
     public function setEmail($email)
     {
-        $this->setUsername($email);
+        //$this->setUsername($email);
         return parent::setEmail($email);
     }
 

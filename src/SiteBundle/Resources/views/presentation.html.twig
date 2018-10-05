@@ -1,0 +1,17 @@
+<div class="w-100">
+    <h1>Présentation</h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.imageName }}" class="avatar_img" />
+        </div>
+        <div class="col-sm-6">
+            <p>Compte: {{ user.username }}</p>
+            <p>Contact: {{ user.email }}</p>
+            <p>Prénom: {{ user.firstname }}</p>
+            <p>Nom: {{ user.lastname }}</p>
+        </div>
+    </div>
+    <hr>
+    <h3>Description</h3>
+    <p>{{ user.description }}</p>
+</div>

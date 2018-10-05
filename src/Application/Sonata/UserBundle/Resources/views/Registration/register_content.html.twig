@@ -2,15 +2,18 @@
 
 {% form_theme form '@ApplicationSonataUser/Registration/templates/form_theme.html.twig' %}
 
+<div class="body">
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'mt-3 inscription-form'}}) }}
 
 		{{ form_errors(form) }}
 
-		<h3 class="text-center">Vous travaillez dans le domaine des Sciences Participatives en biodiversité ?</h3>
-  		<p class="text-center">Animateur de programmes, coordinateur ou expert scientifique, collectif d’observateurs, institutions publiques, OPEN vous permet de référencer vos observatoires et/ou d’entrer en contact avec d’autres professionnels des Sciences Participatives en biodiversité.</p>
+		<h3 class="text-center">Inscription</h3>
+  		<p class="text-center">Merci de contribuer à la diffusion de l'art.</p>
 
+		Vous vous inscrivez en tant que:</br>
+		øUSAGER</br> øARTISTE</br> øLIEU D'ART</br>
 
-		<div class="form-group">
+		{# <div class="form-group">
 			{{ form_widget(form.lastname, { 'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
 			{{ form_errors(form.lastname) }}
 		</div>
@@ -18,12 +21,12 @@
 		<div class="form-group">
 			{{ form_widget(form.firstname, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
 			{{ form_errors(form.firstname) }}
-		</div>
+		</div> #}
 
-		{# <div class="form-group">
+		<div class="form-group">
 			{{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': 'Nom de compte'}}) }}
 			{{ form_errors(form.username) }}
-		</div> #}
+		</div>
 		
 		{# <div class="form-group">        
             <div class="file-wrapper">
@@ -76,7 +79,7 @@
 
 		{# <h2>Votre structure</h2> #}
 
-		<div id="structure_list_container" >
+		{# <div id="structure_list_container" >
 				{{ form_label(form.structures) }}
 				{{ form_widget(form.structures) }}
 				{{ form_errors(form.structures) }}
@@ -84,13 +87,13 @@
 
 		{{ form_row(form.ownedStructures) }}
 
-		<a href="#" id="add_structure" class="btn btn-default">Créer une structure non présente dans la liste</a>
+		<a href="#" id="add_structure" class="btn btn-default">Créer une structure non présente dans la liste</a> #}
 
 		{{ form_widget(form.cgu)}}
 		{{ form_errors(form.cgu) }}
 
-		{{ form_widget(form.emailCheck)}}
-		{{ form_errors(form.emailCheck) }}
+		{# {{ form_widget(form.emailCheck)}}
+		{{ form_errors(form.emailCheck) }} #}
 
 		{{ form_rest(form) }}
 
@@ -117,4 +120,6 @@
 <div class="js-register" 
 	data-path-cgu="{{ path('site_popup', { 'slug': 'cgu' }) }}">
     <!-- ... -->
+</div>
+
 </div>

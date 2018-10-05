@@ -5,7 +5,7 @@ namespace SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Application\Sonata\UserBundle\Entity\User;
-use SiteBundle\Entity\Article;
+use SiteBundle\Entity\Actu;
 // use Symfony\Component\HttpFoundation\File\UploadedFile;
 // use Vich\UploaderBundle\Mapping\Annotation as Vich;
 // use Symfony\Component\HttpFoundation\File\File;
@@ -30,10 +30,10 @@ class Comment
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Actu", inversedBy="comments")
+     * @ORM\JoinColumn(name="actu", referencedColumnName="id")
      */
-    private $article;
+    private $actu;
 
     /**
      * @var string
@@ -100,28 +100,28 @@ class Comment
     }
 
     /**
-     * Gets the value of article.
+     * Gets the value of actu.
      *
-     * @return Article
+     * @return Actu
      */
-    public function getArticle()
+    public function getActu()
     {
-        return $this->article;
+        return $this->actu;
     }
 
     /**
-     * Sets the value of article.
+     * Sets the value of actu.
      *
-     * @param Article $article
+     * @param Actu $actu
      *
      * @return self
      */
-    public function setArticle(Article $article)
+    public function setActu(Actu $actu)
     {
-        // if ($article == null) {
-        //     $this->article = null;
+        // if ($actu == null) {
+        //     $this->actu = null;
         // } else {
-            $this->article = $article;
+            $this->actu = $actu;
         // }
 
         return $this;

@@ -4,3 +4,10 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.avatar_img {
+    width : 300px;
+    /* height: 100px; */
+    /* border-radius: 50%;
+    object-fit: cover; */
+}

@@ -1,32 +1,7 @@
 <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="login">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Connexion</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="section-title">Déjà inscrit</div>
-            <form action="#">
-              <div class="form-group">
-                <input type="email" name="emailLogin" placeholder="Email" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="password" name="passwordLogin" placeholder="Mot de passe" class="form-control">
-              </div>
-              <a href="#" class="forgotPassword">Mot de passe oublié ?</a>
-              <a href="#" type="submit" class="btn btn-block mt-1">Je me connecte</a>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <div class="section-title">Première connexion</div>
-            {# <p class="bordered text-center mt-1"><strong>Vous travaillez dans le domaine des Sciences Participatives en biodiversité ?</strong> Animateur de programmes, coordinateur ou expert scientifique, collectif d’observateurs, institutions publiques, OPEN vous permet de référencer vos observatoires et/ou d’entrer en contact avec d’autres professionnels des Sciences Participatives en biodiversité.</p> #}
-            <a href="inscription-pro" class="btn btn-block">Je crée un compte pro</a>
-          </div>
-        </div>
-      </div>
+      {% block fos_user_login %}{% endblock fos_user_login %}
     </div>
   </div>
 </div>

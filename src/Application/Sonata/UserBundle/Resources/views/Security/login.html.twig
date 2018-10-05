@@ -1,56 +1,68 @@
+
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_login %}
-    {# <div class="modal-header">
+    <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Compte</h4>
-    </div> #}
+        <h4 class="modal-title">Connexion</h4>
+    </div>
     <div class="modal-body">
         <div class="row">
             <div class="col-md-6">
-                <h3 class="section-title">Déjà inscrit</h3>
-                <form action="{{ path(" fos_user_security_check") }}"="fos_user_security_check") }}"" method="post">
-                    <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}"/>
-
-                    <div id="invalidCredentials" hidden="hidden">Nom de compte ou mot de passe invalide</div>
+            <div class="section-title">Déjà inscrit</div>
+                <form id="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.refreshToken('authenticate') }}" />
+                
+                    <div id="invalidCredentials" hidden>Nom de compte ou mot de passe invalide</div>
                     <div class="form-group">
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="Email"/>
+                        <input type="text" id="username" name="_username" 
+                        value="{{ last_username }}" required="required" class="form-control"
+                        placeholder="Email" />
                     </div>
-
+                
                     <div class="form-group">
-                        <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="Mot de passe"/>
+                        <input type="password" id="password" name="_password" required="required"
+                        class="form-control" placeholder="Mot de passe" />
                     </div>
-
+                
                     <div class="form-group remember">
-                        <label><input type="checkbox" name="_remember_me" id="remember_me" value="on">
-                            Se souvenir de moi</label>
+                       <label><input type="checkbox" name="_remember_me" id="remember_me" value="on"> Se souvenir de moi</label>
                     </div>
 
                     {# <div class="checkbox">
                         <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                         <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
                     </div> #}
+        
+                    <a href="{{ path("fos_user_resetting_request") }}" class="forgotPassword" >J'ai oublié mon mot de passe</a>
 
-                    <a href="{{ path(" fos_user_resetting_request") }}"="fos_user_resetting_request") }}"" class="forgotPassword">J'ai oublié mon mot de passe</a>
-
-                    <input class="btn btn-block mt-1" id="_submit" name="_submit" value="Je me connecte"/>
+                    <input 
+                    class="btn btn-block mt-1"
+                    id="_modal_login_submit"
+                    name="_submit"
+                    value="Je me connecte"
+                    />
                 </form>
-                {#  #}
+            {#  #}
             </div>
             <div class="col-md-6">
-                <h3 class="section-title">Première connexion</h3>
-                <p class="bordered  mt-1">
-                    <strong>Vous souhaitez créer des articles facile à lire ou corriger des textes?</strong>
-                    <br>
-                    Il vous sera possible :<br>
-                    - de proposer des articles facile à lire.<br>
-                    - de demander l'amélioration de vos textes (service payant).</p>
-                <a href="{{ path(" fos_user_registration_register") }}"="fos_user_registration_register") }}"" class="btn btn-block">Je m'inscris</a>
+                <div class="section-title">Première connexion? rejoignez la communauté !</div>
+                <p class="bordered mt-1"><strong>Artiste</strong></br>
+                    Présentez-vous ainsi que vos oeuvres, trouvez des sites de création et dates d'expositions.
+                </p>
+                <p class="bordered mt-1"><strong>Lieu d'art</strong></br>
+                    Présentez votre démarche, vos événements, vos locaux. Trouvez des artistes.
+                </p>
+                <p class="bordered mt-1"><strong>Visiteur</strong></br>
+                    Trouvez des expos, soutenez des artistes et lieux d'art.</br>
+                    Suivez leurs dernières actualités selon votre sélection.
+                </p>
+                <a href="{{ path("fos_user_registration_register") }}" class="btn btn-block">Je crée un compte pro</a>
             </div>
         </div>
     </div>
-
+        
     {% javascripts '@ApplicationSonataUserBundle/Resources/public/js/login/login.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock fos_user_login %}
