@@ -1,0 +1,114 @@
+
+
+{# {% if actu is not null %}
+    {% block title %}
+        {{actu.title}} - {{ parent() }}
+    {% endblock %}
+{% endif %} #}
+
+{% block content %}
+<div class="flex-column w-100">
+{% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="mt-4 alert alert-{{ type }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% if actus is not null and actus is not empty %}
+    {% for actu in actus %}
+        {% if actu is not null %}
+            {# {% if hasRights is defined and hasRights and (actu.isActive or is_granted('ROLE_ADMIN')) %} #}
+
+                <div class="block-item">
+
+                    {# <div class="info-page"> #}
+                    {# <div class="info-page col-4"> Actu</div> #}
+                    
+                    {# </div> #}
+                    <div class="image-item">
+                        <img class="mt-2 img-illustration" src="{{ vich_uploader_asset(actu, 'photoFile') }}" alt="{{ actu.title }}">
+                    </div>
+                    <div class="title-item">{{actu.title}}</div>
+                    <div class="subtitle-item">Publié le
+                        {{actu.publishedAt| date('d/m/Y')}}</div>
+                    <div class="type-item">
+                        {% if actu and actu.typeActu is defined %}
+                            <span class="info-page">
+                                catégorie:
+                            </span>
+                            <a href="{{path('builder_buildpage', {'slug':(actu.typeActu.name|replace({' ': '_'})|lower())})}}">{{actu.typeActu.name}}</a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="content-item">{{actu.content | raw}}</div>
+                    {# <div class="author"> Posté par {% if actu.author is not null %}{{ actu.author.username }}{% else %} un auteur anonyme.{% endif %}</div> #}
+                    
+                    
+                    <div class="comments-item mt-5">
+                        <h5> Commentaires ({{actu.comments|length}}):</h5>
+                        {% if actu.comments is empty %}
+                            Aucun commentaire.
+                        {% endif %}
+                        {% for comment in actu.comments %}
+                            <div class="comment">
+                                <div class="auteur">
+                                    {% if comment.author is not null %}
+                                        {{ comment.author.username }}
+                                    {% else %}
+                                        {{ comment.authorName }}
+                                    {% endif %}
+                                </div>
+                                <div class="date">
+                                    {{ comment.publishedAt| date() }}
+                                </div>
+                                <div class="title">
+                                    {{comment.title}}
+                                </div>
+                                <div class="content">
+                                    {{comment.content |nl2br }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="mt-4">
+                            {{ form_start(formComments[actu.id]) }}
+                                {# <div class="d-flex flex-row">
+                                    {{ form_label(formComments[actu.id].authorName, null, {'label_attr': {'class': 'mt-2'}}) }}
+                                    {{ form_widget(formComments[actu.id].authorName, {'attr': {'class': 'ml-2'}}) }}
+                                    {{ form_errors(formComments[actu.id].authorName) }}
+                                </div> #}
+                                {# <div class="d-flex flex-row mb-2">
+                                    {{ form_label(formComments[actu.id].title, 'Titre', {'label_attr': {'class': 'mt-2'}} ) }}
+                                    {{ form_widget(formComments[actu.id].title, {'attr': {'class': 'ml-2'}}) }}
+                                    {{ form_errors(formComments[actu.id].title) }}
+                                </div> #}
+                                <div> Votre commentaire:</div>
+                                {{ form_widget(formComments[actu.id].content) }}
+                                
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(formComments[actu.id].save, {'attr': {'class': 'btn-secondary mt-2'}}) }}
+                                </div>
+                            {{ form_end(formComments[actu.id]) }}
+                        </div>
+                    </div>
+                </div>
+            {# {% else %}
+                <div>
+                    Vous n'êtes pas autorisés à consulter cet actu (id
+                    {{actu.id}})
+                </div>
+            {% endif %} #}
+        {% else %}
+            <div>
+                Il n'y a pas d'actu avec cet identifiant.
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+</div>
+{% endblock %}

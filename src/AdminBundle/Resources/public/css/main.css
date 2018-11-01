@@ -11,6 +11,8 @@
     font-size: 18px;
     color:#003300;
     padding: 20px;
+    min-height: 50vh;
+    display: flex;
 }
 
 .lateral{
@@ -61,6 +63,7 @@ a{
     height: 56px;
     background-color: #e0f0eee6;
     position: relative;
+    z-index: 1021;
 }
 
 
@@ -114,9 +117,9 @@ data-start="position: static;top:0px; background-color: blue;" data-top="positio
     color: #2aa67d;
 }
 
-.Header{
-    max-height: 50vh;
-    /* max-height: 250px; */
+.Header, .banner{
+    /* max-height: 50vh; */
+    max-height: 250px;
     overflow: hidden;
     margin-bottom: -56px;
 }
@@ -157,6 +160,27 @@ data-start="position: static;top:0px; background-color: blue;" data-top="positio
     margin: 0px 20px 40px 20px;
 }
 
+
+
+.banner{
+    z-index: 10;
+    /* max-height: 250px; */
+    /* overflow: hidden; */
+    position: relative;
+}
+.banner .banner_img{
+    width: 100%;
+}
+
+.banner .avatar_banner{
+    position: absolute;
+    top:20px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+}
 
 /* LOGIN PART */
 .modal-header{

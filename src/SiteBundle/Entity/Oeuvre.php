@@ -14,16 +14,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Actu
+ * Oeuvre
  *
- * @ORM\Table(name="actu",
- * indexes={@ORM\Index(name="fulltext_actu_title", columns={"title"}, flags={"fulltext"}),
- *          @ORM\Index(name="fulltext_actu_content", columns={"content"}, flags={"fulltext"})})
- * @ORM\Entity(repositoryClass="SiteBundle\Repository\ActuRepository")
+ * @ORM\Table(name="oeuvre")
+ * @ORM\Entity(repositoryClass="SiteBundle\Repository\OeuvreRepository")
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  */
-class Actu
+class Oeuvre
 {
     /**
      * @var int
@@ -36,29 +34,27 @@ class Actu
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="owner", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="artist", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $author;
+    private $artist;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $title;
+    private $name;
 
     /**
-     * @Gedmo\Slug(fields={"title"}, updatable=true)
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
      * @ORM\Column(length=255)
      */
     protected $slug;
-    //ALTER TABLE actu ADD slug VARCHAR(255) NOT NULL;
-    //CREATE UNIQUE INDEX UNIQ_23A0E66989D9B62 ON actu (slug);
 
     /** Photo
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="actu_photo", fileNameProperty="photoName", size="photoSize")
+     * @Vich\UploadableField(mapping="oeuvre_photo", fileNameProperty="photoName", size="photoSize")
      * 
      * @var File
      */
@@ -81,15 +77,22 @@ class Actu
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="description", type="text")
      */
-    private $content;
+    private $description;
 
-    /** Type de l'actu
-     * @ORM\ManyToOne(targetEntity="Builder\ListBundle\Entity\G_ListItem")
-     * @ORM\JoinColumn(name="li_types_actu", referencedColumnName="id", nullable=false )
-     */ //G_List: types_actu
-     private $typeActu; //Optionnel
+
+    /** Categorie Art
+     * @ORM\ManyToMany(targetEntity="Builder\ListBundle\Entity\G_ListItem", cascade={"persist"})
+     * @ORM\JoinTable(name="oeuvre_categories_art")
+     */ //G_List: categories_art
+     private $categoriesArt; //Optionnel
+
+     /**
+     * @ORM\ManyToMany(targetEntity="Builder\ListBundle\Entity\G_ListItem", cascade={"persist"})
+     * @ORM\JoinTable(name="oeuvre_types_oeuvre")
+     */ //G_List: type_oeuvre
+    private $typesOeuvre;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -113,10 +116,14 @@ class Actu
     private $isActive;
 
 
-    /** @ORM\OneToMany(targetEntity="SiteBundle\Entity\Comment", mappedBy="actu", cascade={"persist"}, orphanRemoval=true) */
+    /** @ORM\OneToMany(targetEntity="SiteBundle\Entity\Comment", mappedBy="oeuvre", cascade={"persist"}, orphanRemoval=true) */
     private $comments;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="SiteBundle\Entity\Image", mappedBy="oeuvre", cascade={"persist"}, orphanRemoval= true)
+     * @Assert\Valid()
+     */
+    private $images;
 
     public function __construct()
     {
@@ -125,6 +132,9 @@ class Actu
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         
+        $this->images = new ArrayCollection();
+        $this->typesOeuvre =  new ArrayCollection();
+        $this->categoriesArt =  new ArrayCollection();
     }
 
     /**
@@ -138,55 +148,55 @@ class Actu
     }
 
     /**
-     * Gets the value of author.
+     * Gets the value of artist.
      *
      * @return User
      */
-    public function getAuthor()
+    public function getArtist()
     {
-        return $this->author;
+        return $this->artist;
     }
 
     /**
-     * Sets the value of author.
+     * Sets the value of artist.
      *
-     * @param User $author
+     * @param User $artist
      *
      * @return self
      */
-    public function setAuthor(User $author)
+    public function setArtist(User $artist)
     {
-        // if ($author == null) {
-        //     $this->author = null;
+        // if ($artist == null) {
+        //     $this->artist = null;
         // } else {
-            $this->author = $author;
+            $this->artist = $artist;
         // }
 
         return $this;
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param string $title
+     * @param string $name
      *
-     * @return Title
+     * @return Name
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     public function getSlug()
@@ -201,51 +211,105 @@ class Actu
     
 
     /**
-     * Set content
+     * Set description
      *
-     * @param string $content
-     *
-     * @return Content
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
+     * @param string $description
      *
      * @return string
      */
-    public function getContent()
+    public function setDescription($description)
     {
-        return $this->content;
-    }
-
-    /**
-     * Set typeActu
-     *
-     * @param \Builder\ListBundle\Entity\G_ListItem $type_actu
-     *
-     * @return Actu
-     */
-    public function setTypeActu(\Builder\ListBundle\Entity\G_ListItem $typeActu = null)
-    {
-        $this->typeActu = $typeActu;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get typeActu
+     * Get description
      *
-     * @return \Builder\ListBundle\Entity\G_ListItem
+     * @return string
      */
-    public function getTypeActu()
+    public function getDescription()
     {
-        return $this->typeActu;
+        return $this->description;
+    }
+
+    /**
+     * Set typesOeuvre
+     *
+     * @param mixed $typesOeuvre
+     *
+     * @return G_ListItem
+     */
+    public function setTypesOeuvre($typesOeuvre)
+    {
+        $this->typesOeuvre = $typesOeuvre;    
+        return $this;
+    }    
+
+    /**
+     * Get typesOeuvre
+     *
+     * @return G_ListItem $typesOeuvre
+     */
+    public function getTypesOeuvre()
+    {
+        return $this->typesOeuvre;
+    }
+
+    /**
+     * @param G_ListItem $typesOeuvre
+     */
+    public function addTypesOeuvre($typeOeuvre)
+    {
+        $this->typesOeuvre[] = $typeOeuvre;
+    }
+
+    /**
+     * @param G_ListItem $typesOeuvre
+     */
+    public function removeTypesOeuvre($typeOeuvre)
+    {
+        $this->typesOeuvre->removeElement($typeOeuvre);
+    }
+
+    /**
+     * Set categoriesArt
+     *
+     * @param mixed $categoriesArt
+     *
+     * @return G_ListItem
+     */
+    public function setCategoriesArt($categoriesArt)
+    {
+        $this->categoriesArt = $categoriesArt;    
+        return $this;
+    }    
+
+    /**
+     * Get categoriesArt
+     *
+     * @return G_ListItem $categoriesArt
+     */
+    public function getCategoriesArt()
+    {
+        return $this->categoriesArt;
+    }
+
+    /**
+     * @param G_ListItem $categoriesArt
+     */
+    public function addCategoriesArt($categorieArt)
+    {
+        $this->categoriesArt[] = $categorieArt;
+    }
+
+    /**
+     * @param G_ListItem $categoriesArt
+     */
+    public function removeCategoriesArt($categorieArt)
+    {
+        $this->categoriesArt->removeElement($categorieArt);
     }
 
     /**
@@ -253,7 +317,7 @@ class Actu
      *
      * @param boolean $isActive
      *
-     * @return Actu
+     * @return Oeuvre
      */
     public function setIsActive($isActive)
     {
@@ -301,7 +365,7 @@ class Actu
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
      *
-     * @return Actu
+     * @return Oeuvre
      */
     public function setPhotoFile(File $image = null)
     {
@@ -330,7 +394,7 @@ class Actu
      *
      * @param string $photoName
      *
-     * @return Actu
+     * @return Oeuvre
      */
     public function setPhotoName($photoName)
     {
@@ -354,7 +418,7 @@ class Actu
      *
      * @param integer $photoSize
      *
-     * @return Actu
+     * @return Oeuvre
      */
     public function setPhotoSize($photoSize)
     {
@@ -433,7 +497,7 @@ class Actu
      */
     public function addComment($comments)
     {
-        $comments->setActu($this);
+        $comments->setOeuvre($this);
         $this->comments[] = $comments;
 
         return $this;
@@ -460,7 +524,48 @@ class Actu
     }
 
 
+    public function setImages($images)
+    {
+        if (count($images) > 0) {
+            foreach ($images as $i) {
 
+                $this->addImage($i);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Add image
+     *
+     * @param Image $image
+     *
+     */
+    public function addImage(Image $image)
+    {
+        $image->setOeuvre($this);
+        $this->images->add($image);
+    }
+
+    /**
+     * Remove image
+     *
+     * @param Image $image
+     */
+    public function removeImage(Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 
 
 }

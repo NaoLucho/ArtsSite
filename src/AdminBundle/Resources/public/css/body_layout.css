@@ -87,3 +87,16 @@ table td{
     width: auto;
     display: inline-block;
 }
+
+
+.comments{
+    background-color: #EEE;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.comment{
+    background-color: white;
+    padding: 4px;
+    margin-bottom: 4px;
+}

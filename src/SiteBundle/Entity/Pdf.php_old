@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-use SiteBundle\Entity\Article;
+//use SiteBundle\Entity\Article;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -63,11 +63,11 @@ class Pdf
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Article", inversedBy="pdfs")
-     * @ORM\JoinColumn(name="article", referencedColumnName="id", nullable=true)
-     */
-    private $article;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Article", inversedBy="pdfs")
+    //  * @ORM\JoinColumn(name="article", referencedColumnName="id", nullable=true)
+    //  */
+    // private $article;
 
     public function getName()
     {

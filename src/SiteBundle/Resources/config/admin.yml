@@ -1,11 +1,11 @@
 # Site services for administration:
 
 services:
-  app.admin.article:
-    class: SiteBundle\Admin\ArticleAdmin
-    arguments: [~, SiteBundle\Entity\Article, ~]
+  app.admin.actu:
+    class: SiteBundle\Admin\ActuAdmin
+    arguments: [~, SiteBundle\Entity\Actu, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: "Métier", label: "Articles" }
+      - { name: sonata.admin, manager_type: orm, group: "Métier", label: "Actus" }
     public: true
 
   app.admin.comment:
@@ -20,4 +20,11 @@ services:
     arguments: [~, SiteBundle\Entity\Lien, ~]
     tags:
       - { name: sonata.admin, manager_type: orm, group: "Métier", label: "Liens" }
+    public: true
+
+  app.admin.oeuvre:
+    class: SiteBundle\Admin\OeuvreAdmin
+    arguments: [~, SiteBundle\Entity\Oeuvre, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Métier", label: "Oeuvres" }
     public: true
