@@ -297,9 +297,15 @@ vich_uploader:
             namer:              vich_uploader.namer_origname
             delete_on_update: true
             delete_on_remove: true
-        article_photo:
-            uri_prefix:         '%image_prefix%/article_photo/'
-            upload_destination: '%kernel.root_dir%/../web/uploads/img/article_photo'
+        avatar_banner:
+            uri_prefix:         '%image_prefix%/banners'
+            upload_destination: '%kernel.root_dir%/../web/uploads/img/banners'
+            namer:              vich_uploader.namer_origname
+            delete_on_update: true
+            delete_on_remove: true
+        actu_photo:
+            uri_prefix:         '%image_prefix%/actu_photo/'
+            upload_destination: '%kernel.root_dir%/../web/uploads/img/actu_photo'
             namer:              vich_uploader.namer_origname
             delete_on_update: true
             delete_on_remove: true
@@ -312,6 +318,12 @@ vich_uploader:
         fichier_pdf:
             uri_prefix:         '%image_prefix%/article/fichier_pdf'
             upload_destination: '%kernel.root_dir%/../web/uploads/img/article/fichier_pdf'
+            namer:              vich_uploader.namer_origname
+            delete_on_update: true
+            delete_on_remove: true
+        oeuvre_photo:
+            uri_prefix:         '%image_prefix%/oeuvre/'
+            upload_destination: '%kernel.root_dir%/../web/uploads/img/oeuvre'
             namer:              vich_uploader.namer_origname
             delete_on_update: true
             delete_on_remove: true

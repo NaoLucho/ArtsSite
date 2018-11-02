@@ -84,6 +84,30 @@ class User extends BaseUser
     private $imageSize;
 
     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="avatar_banner", fileNameProperty="bannerName", size="bannerSize")
+     * 
+     * @var File
+     */
+    private $bannerFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $bannerName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var integer
+     */
+    private $bannerSize;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -209,4 +233,69 @@ class User extends BaseUser
     }
     
 
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $banner
+     *
+     * @return File
+     */
+    public function setBannerFile(File $banner = null)
+    {
+        $this->bannerFile = $banner;
+
+        if ($banner) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getBannerFile()
+    {
+        return $this->bannerFile;
+    }
+
+    /**
+     * @param string $bannerName
+     *
+     * @return Image
+     */
+    public function setBannerName($bannerName)
+    {
+        $this->bannerName = $bannerName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBannerName()
+    {
+        return $this->bannerName;
+    }
+
+    /**
+     * @param integer $bannerSize
+     *
+     * @return Image
+     */
+    public function setBannerSize($bannerSize)
+    {
+        $this->bannerSize = $bannerSize;
+
+        return $this;
+    }
+
+    /**
+     * @return integer|null
+     */
+    public function getBannerSize()
+    {
+        return $this->bannerSize;
+    }
 }

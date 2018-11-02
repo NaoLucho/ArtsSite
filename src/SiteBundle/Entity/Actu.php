@@ -5,7 +5,6 @@ namespace SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Application\Sonata\UserBundle\Entity\User;
-use SiteBundle\Entity\Pdf;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
@@ -15,16 +14,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Article
+ * Actu
  *
- * @ORM\Table(name="article",
- * indexes={@ORM\Index(name="fulltext_article_title", columns={"title"}, flags={"fulltext"}),
- *          @ORM\Index(name="fulltext_article_content", columns={"content"}, flags={"fulltext"})})
- * @ORM\Entity(repositoryClass="SiteBundle\Repository\ArticleRepository")
+ * @ORM\Table(name="actu",
+ * indexes={@ORM\Index(name="fulltext_actu_title", columns={"title"}, flags={"fulltext"}),
+ *          @ORM\Index(name="fulltext_actu_content", columns={"content"}, flags={"fulltext"})})
+ * @ORM\Entity(repositoryClass="SiteBundle\Repository\ActuRepository")
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  */
-class Article
+class Actu
 {
     /**
      * @var int
@@ -53,13 +52,13 @@ class Article
      * @ORM\Column(length=255)
      */
     protected $slug;
-    //ALTER TABLE article ADD slug VARCHAR(255) NOT NULL;
-    //CREATE UNIQUE INDEX UNIQ_23A0E66989D9B62 ON article (slug);
+    //ALTER TABLE actu ADD slug VARCHAR(255) NOT NULL;
+    //CREATE UNIQUE INDEX UNIQ_23A0E66989D9B62 ON actu (slug);
 
     /** Photo
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="article_photo", fileNameProperty="photoName", size="photoSize")
+     * @Vich\UploadableField(mapping="actu_photo", fileNameProperty="photoName", size="photoSize")
      * 
      * @var File
      */
@@ -114,7 +113,7 @@ class Article
     private $isActive;
 
 
-    /** @ORM\OneToMany(targetEntity="SiteBundle\Entity\Comment", mappedBy="article", cascade={"persist"}, orphanRemoval=true) */
+    /** @ORM\OneToMany(targetEntity="SiteBundle\Entity\Comment", mappedBy="actu", cascade={"persist"}, orphanRemoval=true) */
     private $comments;
 
 
@@ -254,7 +253,7 @@ class Article
      *
      * @param boolean $isActive
      *
-     * @return Article
+     * @return Actu
      */
     public function setIsActive($isActive)
     {
@@ -302,7 +301,7 @@ class Article
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
      *
-     * @return Article
+     * @return Actu
      */
     public function setPhotoFile(File $image = null)
     {
@@ -331,7 +330,7 @@ class Article
      *
      * @param string $photoName
      *
-     * @return Article
+     * @return Actu
      */
     public function setPhotoName($photoName)
     {
@@ -355,7 +354,7 @@ class Article
      *
      * @param integer $photoSize
      *
-     * @return Article
+     * @return Actu
      */
     public function setPhotoSize($photoSize)
     {
@@ -434,7 +433,7 @@ class Article
      */
     public function addComment($comments)
     {
-        $comments->setArticle($this);
+        $comments->setActu($this);
         $this->comments[] = $comments;
 
         return $this;

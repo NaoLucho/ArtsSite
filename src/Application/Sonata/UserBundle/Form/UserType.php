@@ -37,6 +37,10 @@ class UserType extends AbstractType {
             'required' => false,
             'label' => 'Avatar'
         ))
+        ->add('bannerFile', FileType::class, array(
+            'required' => false,
+            'label' => 'Bannière'
+        ))
         ->add('description', null, array(
             'label' => 'Description'
         ));

@@ -51,7 +51,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
@@ -85,7 +85,7 @@ class Comment
 
     public function __construct()
     {
-        $this->isActive = false;
+        $this->isActive = true;
         $this->publishedAt = new \DateTime();
     }
 

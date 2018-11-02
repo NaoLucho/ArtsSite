@@ -1,0 +1,54 @@
+<div class="flex-row w-100">
+<div class="nbresults">{{nb_total_items}} oeuvre{% if nb_total_items > 1 %}s{% endif %}</div>
+<div class="list-items">
+    {% if items is defined %}
+        {% for item in items %} 
+            {% if item is iterable %}
+                {% set item = item[0] %}
+            {% endif %}
+            <div class="item row">
+                <div class="illustration col-3" >
+                    <a class="" href="{{path('builder_buildpageid',{'slug':'oeuvre','id': (item.slug is empty? item.id:item.slug) })}}">
+                        <img src="{{ vich_uploader_asset(item, 'photoFile') }}" alt="{{ item.name }}">
+                    </a>
+                </div>
+                <div class="info col">
+                    <div class="title">
+                        <a href="{{path('builder_buildpageid',{'slug':'oeuvre','id':(item.slug is empty? item.id:item.slug) })}}">{{item.name}}</a>
+                    </div>
+                    <div class="date">
+                        Publié le {{item.publishedAt| date('d/m/Y')}}
+                    </div>
+                    <div class="content">
+                        {{item.description| striptags | slice(0,400) | raw }} 
+                    </div>
+                    <a class="" href="{{path('builder_buildpageid',{'slug':'oeuvre','id':(item.slug is empty? item.id:item.slug) })}}"> > voir l'oeuvre</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {# pager #}
+    {% if categorie is defined and categorie is not empty and request.get("slug") != (categorie|replace({' ': '_'})|lower()) %}
+        <a class="mb-5 d-flex justify-content-center" href="{{ path('builder_buildpage', {'slug': (categorie|replace({' ': '_'})|lower())})}}">> voir plus d'articles</a>
+    {% elseif pages > 1 and numpage is defined %}
+        <nav class="single-pager mt-3">
+            <ul class="pagination justify-content-center">
+                {% for p in 1..pages %}
+                    <li class="{{ p == numpage ? 'active' : ''}}">
+                        <a class="pager-item" index="{{loop.index}}" href="{{ path('builder_buildpage', {'slug': ((categorie is defined and categorie is not empty)?(categorie|replace({' ': '_'})|lower()) : request.get("slug")) , 'request' : request,'p': p})}}">{{ loop.index }}</a>{{ loop.index != loop.length ? '-'}}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+
+</div>
+
+{% if isOwnerAccount %}
+    <div class="add_button">
+        <button type="button" class="btn btn-primary">Ajouter une oeuvre</button>
+    <div>
+{% endif %}
+
+</div>

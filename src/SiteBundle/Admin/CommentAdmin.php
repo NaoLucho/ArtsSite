@@ -93,15 +93,17 @@ class CommentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('id')
             ->addIdentifier('title', null, array(
                 'label' => "Titre"
             ))
-            ->add('article', null, array(
+            ->add('actu', null, array(
                 'associated_property' => 'title'
             ))
             ->add('authorName', null, array(
                 'label' => "Auteur"
             ))
+            ->add('content')
             // ->add('author.firstname', null, array(
             //     'label' => "Auteur (User)"
             // ))
